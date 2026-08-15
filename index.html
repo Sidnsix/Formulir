@@ -3,81 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Pendaftaran Modern</title>
-    <!-- Menghubungkan berkas CSS eksternal -->
-    <link rel="stylesheet" href="style.css">
+    <title>Al-Qur'an Digital Modern</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Amiri:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-arabic: #0f172a;
+            --text-latin: #0284c7;
+            --primary: #0f766e;
+            --primary-light: #f0fdfa;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            --radius: 16px;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0f172a;
+            --bg-sidebar: #1e293b;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-arabic: #f8fafc;
+            --text-latin: #38bdf8;
+            --primary: #14b8a6;
+            --primary-light: #134e4a;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Kiri */
+        .sidebar {
+            width: 360px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .brand h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* Kategori Tab Gaya Sindonews */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background-color: var(--bg-main);
+            padding: 4px;
+            margin: 0 24px 16px 24px;
+            border-radius: 10px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .tab-btn.active {
+            background-color: var(--bg-sidebar);
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 24px 24px 24px;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        .menu-item-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .surah-number, .juz-number {
+            width: 36px;
+            height: 36px;
+            background-color: var(--bg-main);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .menu-item.active .surah-number {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .surah-info h3 { font-size: 15px; font-weight: 600; }
+        .surah-info p { font-size: 12px; color: var(--text-muted); }
+        .surah-arabic { font-family: 'Amiri', serif; font-size: 18px; color: var(--primary); }
+
+        /* Area Membaca Utama */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .main-header {
+            padding: 20px 40px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--text-main);
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .active-title h2 { font-size: 22px; font-weight: 700; }
+        .active-title p { font-size: 14px; color: var(--text-muted); }
+
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .bismillah-card {
+            text-align: center;
+            font-family: 'Amiri', serif;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: var(--text-arabic);
+        }
+
+        .ayat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .ayat-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 28px;
+            border: 1px solid var(--border);
+        }
+
+        .ayat-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .ayat-badge {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .ayat-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 28px;
+            line-height: 2.2;
+            text-align: right;
+            color: var(--text-arabic);
+            margin-bottom: 16px;
+        }
+
+        .ayat-latin {
+            font-size: 15px;
+            color: var(--text-latin);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .ayat-translation {
+            font-size: 15px;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 16px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Desain Responsif HP */
+        @media (max-width: 992px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                bottom: 0;
+                transition: left 0.3s ease;
+            }
+            .sidebar.open { left: 0; }
+            .mobile-toggle { display: block; }
+            .main-header { padding: 16px 20px; }
+            .content-body { padding: 20px; }
+            .ayat-arabic { font-size: 24px; }
+        }
+    </style>
 </head>
 <body>
 
-    <form id="formPendaftaran" action="simpan_data.php" method="post">
-        <h1>Formulir Pendaftaran</h1>
-        
-        <!-- Input Username -->
-        <div class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" minlength="3" placeholder="Masukkan username" required>
-        </div>
-
-        <!-- Input Email -->
-        <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Masukkan email" required>
-        </div>
-
-        <!-- Input Password -->
-        <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Masukkan password" required>
-        </div>
-
-        <!-- Input Jenis Kelamin -->
-        <div class="input-group">
-            <label>Jenis Kelamin</label>
-            <div class="radio-group">
-                <div class="radio-option">
-                    <input type="radio" id="pria" name="kelamin" value="Pria" required>
-                    <label for="pria">Pria</label>
-                </div>
-                <div class="radio-option">
-                    <input type="radio" id="wanita" name="kelamin" value="Wanita" required>
-                    <label for="wanita">Wanita</label>
-                </div>
+    <!-- Navigasi Kiri -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <h1><i class="fa-solid fa-quran"></i> Al-Qur'an</h1>
+                <button class="theme-toggle" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
+            </div>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Cari surat atau juz...">
             </div>
         </div>
 
-        <!-- Input Negara -->
-        <div class="input-group">
-            <label for="negara">Negara</label>
-            <select id="negara" name="negara" required>
-                <option value="">-- Pilih Negara --</option>
-                <option value="Indonesia">Indonesia</option>
-                <option value="Malaysia">Malaysia</option>
-                <option value="Singapura">Singapura</option>
-                <option value="Thailand">Thailand</option>
-                <option value="Filipina">Filipina</option>
-                <option value="Vietnam">Vietnam</option>
-                <option value="Brunei">Brunei Darussalam</option>
-                <option value="Jepang">Jepang</option>
-                <option value="Korea Selatan">Korea Selatan</option>
-                <option value="Arab Saudi">Arab Saudi</option>
-                <option value="Australia">Australia</option>
-                <option value="Amerika Serikat">Amerika Serikat</option>
-                <option value="Inggris">Inggris</option>
-                <option value="Jerman">Jerman</option>
-            </select>
-        </div>
-
-        <!-- Input Pesan -->
-        <div class="input-group">
-            <label for="pesan">Pesan</label>
-            <textarea id="pesan" name="pesan" rows="4" placeholder="Tulis pesan Anda di sini..."></textarea>
-        </div>
-
-        <!-- Tombol Submit -->
-        <button type="submit">Daftar Sekarang</button>
-    </form>
-
-    <!-- Menghubungkan berkas JavaScript eksternal -->
-    <script src="script.js"></script>
-</body>
-</html>
