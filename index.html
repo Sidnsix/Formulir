@@ -2,66 +2,179 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Qur'an Digital Modern</title>
-    <!-- Google Fonts & FontAwesome -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Amiri:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- File CSS Eksternal -->
-    <link rel="stylesheet" href="style.css">
+    <title>Al-Quran Digital Interaktif & Estetis</title>
 </head>
-<body>
+<body bgcolor="#f4f1ea" text="#2c3e50" link="#8c6239" vlink="#5c3a21">
 
-    <!-- Sidebar Navigasi Kiri -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="brand">
-                <h1><i class="fa-solid fa-quran"></i> Al-Qur'an</h1>
-                <button class="theme-toggle" id="themeToggle" title="Ubah Tema">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-            </div>
-            <div class="search-container">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" class="search-input" id="searchInput" placeholder="Cari surat atau juz...">
-            </div>
-        </div>
+    <!-- HEADER & NAVIGASI UTAMA -->
+    <table width="100%" border="0" cellpadding="20" cellspacing="0" bgcolor="#1e362e">
+        <tr>
+            <td align="center">
+                <font color="#dfb76c" size="6" face="Georgia, serif">
+                    <b>🕌 AL-QURAN AL-KARIM</b>
+                </font>
+                <br>
+                <font color="#ffffff" size="3" face="Arial, sans-serif">
+                    Membaca, Mencari, dan Menandai Juz & Surah Berbasis HTML Murni
+                </font>
+            </td>
+        </tr>
+    </table>
 
-        <div class="tabs">
-            <button class="tab-btn active" id="tabSurah" onclick="switchTab('surah')">Surat</button>
-            <button class="tab-btn" id="tabJuz" onclick="switchTab('juz')">Juz</button>
-        </div>
+    <br>
 
-        <div class="sidebar-menu">
-            <div class="menu-list" id="menuList"></div>
-        </div>
-    </aside>
+    <!-- KONTEN UTAMA: FITUR PENCARIAN & BOOKMARK MURNI HTML -->
+    <table width="90%" align="center" border="0" cellpadding="10" cellspacing="0">
+        <tr>
+            <!-- Kolom Kiri: Fitur Cari & Bookmark -->
+            <td width="30%" valign="top" bgcolor="#e8e4d9">
+                
+                <!-- Fitur Pencarian Cepat berbasis Page Anchor -->
+                <table width="100%" border="0" cellpadding="10" cellspacing="0">
+                    <tr>
+                        <td bgcolor="#dfb76c">
+                            <font color="#1e362e" face="Arial"><b>🔍 Navigasi / Cari Cepat</b></font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font size="2" face="Arial">
+                                Cari halaman otomatis menggunakan fitur bawaan browser Anda (Tekan <b>Ctrl + F</b> atau <b>Cmd + F</b> untuk mencari kata/ayat spesifik).
+                            </font>
+                            <hr color="#2c3e50" size="1">
+                            <font size="2" face="Arial"><b>Lompat Langsung ke Juz:</b></font>
+                            <br><br>
+                            <font face="Arial" size="2">
+                                <a href="#juz1">✨ Juz 1</a> | 
+                                <a href="#juz2">✨ Juz 2</a> | 
+                                <a href="#juz30">✨ Juz 30</a>
+                            </font>
+                        </td>
+                    </tr>
+                </table>
 
-    <!-- Konten Membaca Utama -->
-    <main class="main-content">
-        <header class="main-header">
-            <button class="mobile-toggle" id="mobileToggle" title="Buka Menu">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div class="active-title">
-                <h2 id="activeHeaderTitle">Memuat...</h2>
-                <p id="activeHeaderDesc">Menyiapkan mushaf digital</p>
-            </div>
-        </header>
+                <br>
 
-        <section class="content-body" id="contentBody">
-            <div class="loading-state">
-                <div class="spinner"></div>
-            </div>
-        </section>
-    </main>
+                <!-- Fitur Bookmark / Penanda Buku Murni HTML -->
+                <div id="bookmarks"></div>
+                <table width="100%" border="0" cellpadding="10" cellspacing="0">
+                    <tr>
+                        <td bgcolor="#dfb76c">
+                            <font color="#1e362e" face="Arial"><b>📌 Bookmark / Penanda Bacaan</b></font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <font size="2" face="Arial">
+                                Klik tautan di bawah ini untuk menandai atau kembali ke posisi membaca terakhir Anda secara instan:
+                            </font>
+                            <br><br>
+                            <ul>
+                                <li><font size="2" face="Arial"><a href="#bacaan-terakhir-juz1">Tandai: Terakhir Baca Juz 1</a></font></li>
+                                <li><font size="2" face="Arial"><a href="#bacaan-terakhir-juz2">Tandai: Terakhir Baca Juz 2</a></font></li>
+                                <li><font size="2" face="Arial"><a href="#bacaan-terakhir-juz30">Tandai: Terakhir Baca Juz 30</a></font></li>
+                            </ul>
+                            <font size="1" color="#7f8c8d" face="Arial">
+                                *Tips: Salin URL di browser setelah klik untuk menyimpan bookmark Anda.
+                            </font>
+                        </td>
+                    </tr>
+                </table>
 
-    <!-- Audio Elemen Global -->
-    <audio id="globalAudioPlayer"></audio>
+            </td>
 
-    <!-- File JavaScript Eksternal -->
-    <script src="script.js"></script>
-</body>
-</html>
+            <!-- Jarak Antar Kolom -->
+            <td width="2%"></td>
+
+            <!-- Kolom Kanan: Daftar Juz dan Surah Interaktif -->
+            <td width="68%" valign="top" bgcolor="#ffffff">
+                
+                <table width="100%" border="0" cellpadding="10" cellspacing="0">
+                    <tr>
+                        <td bgcolor="#1e362e">
+                            <font color="#dfb76c" face="Arial" size="4"><b>📖 Daftar Juz & Surah (Interaktif Klik)</b></font>
+                        </td>
+                    </tr>
+                </table>
+                
+                <br>
+                <font size="2" face="Arial" color="#7f8c8d"><i>Klik pada nama Juz di bawah ini untuk membuka daftar surah dan isi ayatnya tanpa pindah halaman.</i></font>
+                <br><br>
+
+                <!-- ==================== JUZ 1 ==================== -->
+                <div id="juz1"></div>
+                <div id="bacaan-terakhir-juz1"></div>
+                <details>
+                    <summary><font size="4" face="Georgia" color="#1e362e"><b>[+] JUZ 1 (Al-Fatiha s.d Al-Baqarah 141)</b></font></summary>
+                    <blockquote>
+                        <br>
+                        <!-- Surah 1 -->
+                        <table width="100%" border="0" cellpadding="10" cellspacing="1" bgcolor="#dfb76c">
+                            <tr>
+                                <td bgcolor="#1e362e"><font color="#ffffff" face="Arial"><b>Surah Al-Fatiha (Pembukaan)</b></font></td>
+                                <td bgcolor="#1e362e" align="right"><font color="#dfb76c" size="5"><b>الفاتحة</b></font></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" bgcolor="#fcfbf8" align="right">
+                                    <br>
+                                    <font size="6" face="Traditional Arabic, serif">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ {١}</font>
+                                    <br><br>
+                                    <font size="2" face="Arial" color="#7f8c8d">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</font>
+                                    <hr color="#e8e4d9" size="1">
+                                    
+                                    <font size="6" face="Traditional Arabic, serif">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ {٢}</font>
+                                    <br><br>
+                                    <font size="2" face="Arial" color="#7f8c8d">Segala puji bagi Allah, Tuhan seluruh alam.</font>
+                                    <hr color="#e8e4d9" size="1">
+
+                                    <font size="6" face="Traditional Arabic, serif">الرَّحْمَٰنِ الرَّحِيمِ {٣}</font>
+                                    <br><br>
+                                    <font size="2" face="Arial" color="#7f8c8d">Yang Maha Pengasih, Maha Penyayang.</font>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <br>
+
+                        <!-- Surah 2 (Potongan Juz 1) -->
+                        <table width="100%" border="0" cellpadding="10" cellspacing="1" bgcolor="#dfb76c">
+                            <tr>
+                                <td bgcolor="#1e362e"><font color="#ffffff" face="Arial"><b>Surah Al-Baqarah (Sapi Betina) - Ayat 1-3</b></font></td>
+                                <td bgcolor="#1e362e" align="right"><font color="#dfb76c" size="5"><b>البقرة</b></font></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" bgcolor="#fcfbf8" align="right">
+                                    <br>
+                                    <font size="6" face="Traditional Arabic, serif">الم {١}</font>
+                                    <br><br>
+                                    <font size="2" face="Arial" color="#7f8c8d">Alif Lam Mim.</font>
+                                    <hr color="#e8e4d9" size="1">
+                                    
+                                    <font size="6" face="Traditional Arabic, serif">ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِلْمُتَّقِينَ {٢}</font>
+                                    <br><br>
+                                    <font size="2" face="Arial" color="#7f8c8d">Kitab (Al-Qur'an) ini tidak ada keraguan padanya; petunjuk bagi mereka yang bertakwa.</font>
+                                </td>
+                            </tr>
+                        </table>
+                    </blockquote>
+                </details>
+
+                <hr color="#e8e4d9" size="1">
+
+                <!-- ==================== JUZ 2 ==================== -->
+                <div id="juz2"></div>
+                <div id="bacaan-terakhir-juz2"></div>
+                <details>
+                    <summary><font size="4" face="Georgia" color="#1e362e"><b>[+] JUZ 2 (Al-Baqarah 142 s.d 252)</b></font></summary>
+                    <blockquote>
+                        <br>
+                        <table width="100%" border="0" cellpadding="10" cellspacing="1" bgcolor="#dfb76c">
+                            <tr>
+                                <td bgcolor="#1e362e"><font color="#ffffff" face="Arial"><b>Surah Al-Baqarah (Sambungan) - Ayat 142</b></font></td>
+                                <td bgcolor="#1e362e" align="right"><font color="#dfb76c" size="5"><b>البقرة</b></font></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" bgcolor="#fcfbf8" align="right">
+                                    <br>
+                                    <font size="6" face="Traditional Arabic, serif">سَيَقُولُ السُّفَهَاءُ مِنَ النَّاسِ مَا وَلَّاهُمْ عَنْ قِبْلَتِهِمُ الَّتِي كَانُوا عَلَيْهَا...</font>
+                                    <br><br>
